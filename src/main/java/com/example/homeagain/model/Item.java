@@ -1,30 +1,39 @@
 package com.example.homeagain.model;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 public class Item {
     private int id;
     private String title;
     private String description;
-    private String imagePath;
-    private String postType;   // "lost" or "found"
-    private boolean approvalStatus;  // true if admin approves
-    private String itemStatus; // "Claimed" or "Received"
-    private int userId;        // foreign key to the user
-    private Date postedDate;
+    private int categoryId;
+    private String imageUrl;
+    private String location;
+    private String postType;  // "lost" or "found"
+    private String status;    // "pending", "approved", "rejected"
+    private String rejectionReason;
+    private int userId;
+    private Timestamp postedAt;
+    private String type;  // "lost" or "found"
 
+    // Default constructor
+    public Item() {
+    }
 
-    public Item(int id, String title, String description, String imagePath,
-                String postType, boolean approved, String itemStatus, int userId, Date postedDate) {
+    public Item(int id, String title, String description, int categoryId, String imageUrl,
+                String location, String postType, String status, String rejectionReason,
+                int userId, Timestamp postedAt) {
         this.id = id;
         this.title = title;
         this.description = description;
-        this.imagePath = imagePath;
+        this.categoryId = categoryId;
+        this.imageUrl = imageUrl;
+        this.location = location;
         this.postType = postType;
-        this.approvalStatus = approved;
-        this.itemStatus = itemStatus;
+        this.status = status;
+        this.rejectionReason = rejectionReason;
         this.userId = userId;
-        this.postedDate = postedDate;
+        this.postedAt = postedAt;
     }
 
     // Getters and Setters
@@ -52,12 +61,28 @@ public class Item {
         this.description = description;
     }
 
-    public String getImagePath() {
-        return imagePath;
+    public int getCategoryId() {
+        return categoryId;
     }
 
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public String getPostType() {
@@ -68,20 +93,20 @@ public class Item {
         this.postType = postType;
     }
 
-    public String getItemStatus() {
-        return itemStatus;
+    public String getStatus() {
+        return status;
     }
 
-    public void setItemStatus(String itemStatus) {
-        this.itemStatus = itemStatus;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
-    public boolean isApproved() {
-        return approvalStatus;
+    public String getRejectionReason() {
+        return rejectionReason;
     }
 
-    public void setApproved(boolean approved) {
-        this.approvalStatus = approved;
+    public void setRejectionReason(String rejectionReason) {
+        this.rejectionReason = rejectionReason;
     }
 
     public int getUserId() {
@@ -92,11 +117,19 @@ public class Item {
         this.userId = userId;
     }
 
-    public Date getPostedDate() {
-        return postedDate;
+    public Timestamp getPostedAt() {
+        return postedAt;
     }
 
-    public void setPostedDate(Date postedDate) {
-        this.postedDate = postedDate;
+    public void setPostedAt(Timestamp postedAt) {
+        this.postedAt = postedAt;
     }
-}
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+} 
