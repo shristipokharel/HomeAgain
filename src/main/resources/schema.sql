@@ -53,16 +53,17 @@ CREATE TABLE items (
     FOREIGN KEY (category_id) REFERENCES categories(id)
 ) ENGINE=InnoDB;
 
-CREATE TABLE IF NOT EXISTS contacts (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+-- 6. Create Contacts table (depends on users)
+CREATE TABLE contacts (
+    id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(100) NOT NULL,
     email VARCHAR(100) NOT NULL,
-    subject VARCHAR(200) NOT NULL,
+    subject VARCHAR(255) NOT NULL,
     message TEXT NOT NULL,
-    user_id INT,
+    user_id INT NULL, -- NULL if message is from a non-registered user
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL
-); 
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL -- If a user is deleted, set their contact messages to NULL
+) ENGINE=InnoDB;
 
 
 

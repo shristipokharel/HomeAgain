@@ -182,14 +182,15 @@
 
         /* About Page Specific Styles */
         .about-hero {
-            background: linear-gradient(to right, var(--primary-color), var(--primary-dark));
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
             color: white;
-            padding: 4rem 2rem;
+            padding: 6rem 2rem;
             border-radius: var(--radius-lg);
-            margin-bottom: 3rem;
+            margin-bottom: 4rem;
             text-align: center;
             position: relative;
             overflow: hidden;
+            box-shadow: var(--shadow-lg);
         }
 
         .about-hero::before {
@@ -199,22 +200,24 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="2"/></svg>') repeat;
-            opacity: 0.3;
+            background: url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover;
+            opacity: 0.15;
         }
 
         .about-hero h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
             position: relative;
             color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
         }
 
         .about-hero p {
-            font-size: 1.25rem;
+            font-size: 1.4rem;
             max-width: 800px;
             margin: 0 auto;
             position: relative;
+            line-height: 1.8;
         }
 
         .card {
@@ -260,8 +263,10 @@
         }
 
         .value-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            overflow-x: auto; /* Enable horizontal scrolling if needed */
             gap: 1.5rem;
             margin-bottom: 3rem;
         }
@@ -335,28 +340,89 @@
         }
 
         .stats-section {
-            background: linear-gradient(to right, var(--primary-light), var(--primary-color));
-            border-radius: var(--radius-lg);
-            padding: 3rem 2rem;
-            margin-bottom: 3rem;
-            color: white;
-        }
-
-        .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 2rem;
-            text-align: center;
+            margin: 4rem 0;
         }
 
-        .stat-item h3 {
+        .stat-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: var(--radius);
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .stat-number {
             font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
             margin-bottom: 0.5rem;
         }
 
-        .stat-item p {
-            font-size: 1rem;
-            opacity: 0.9;
+        .stat-label {
+            color: var(--secondary-color);
+            font-size: 1.1rem;
+        }
+
+        .mission-vision {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 4rem 0;
+        }
+
+        .mission-card, .vision-card {
+            background: var(--white);
+            padding: 2.5rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mission-card::before, .vision-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary-color), var(--primary-dark));
+        }
+
+        .mission-card h3, .vision-card h3 {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .mission-card p, .vision-card p {
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        .icon-container {
+            width: 60px;
+            height: 60px;
+            background: var(--primary-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .icon-container i {
+            font-size: 1.8rem;
+            color: var(--primary-color);
         }
 
         /* Footer Styles */
@@ -489,6 +555,7 @@
             }
         }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     <!-- Check if user is logged in -->
@@ -523,10 +590,46 @@
 
     <main>
         <div class="container">
-            <div class="about-hero">
-                <h1>Reuniting People with Their Cherished Items</h1>
-                <p>HomeAgain is dedicated to creating a supportive community where lost belongings find their way back home.</p>
-            </div>
+            <section class="about-hero">
+                <h1>Welcome to HomeAgain</h1>
+                <p>Where every pet finds their perfect home and every family discovers their perfect companion. We're dedicated to creating lasting bonds between pets and their forever families.</p>
+            </section>
+
+            <section class="stats-section">
+                <div class="stat-card">
+                    <div class="stat-number">5000+</div>
+                    <div class="stat-label">Happy Pets Adopted</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">98%</div>
+                    <div class="stat-label">Successful Adoptions</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">2000+</div>
+                    <div class="stat-label">Volunteer Hours</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">15+</div>
+                    <div class="stat-label">Years of Service</div>
+                </div>
+            </section>
+
+            <section class="mission-vision">
+                <div class="mission-card">
+                    <div class="icon-container">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3>Our Mission</h3>
+                    <p>To provide every pet with a loving home and ensure that every adoption creates a lasting bond between pets and their families. We believe in responsible pet ownership and creating a community where every animal is valued and cared for.</p>
+                </div>
+                <div class="vision-card">
+                    <div class="icon-container">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <h3>Our Vision</h3>
+                    <p>To create a world where every pet has a loving home and every family can experience the joy of pet companionship. We envision a future where animal shelters are empty because every pet has found their perfect match.</p>
+                </div>
+            </section>
 
             <div class="about-section">
                 <h2>Our Story</h2>
@@ -559,27 +662,6 @@
                 </div>
             </div>
 
-            <div class="stats-section">
-                <div class="stats-grid">
-                    <div class="stat-item">
-                        <h3>10,000+</h3>
-                        <p>Items Recovered</p>
-                    </div>
-                    <div class="stat-item">
-                        <h3>15,000+</h3>
-                        <p>Active Users</p>
-                    </div>
-                    <div class="stat-item">
-                        <h3>95%</h3>
-                        <p>Satisfaction Rate</p>
-                    </div>
-                    <div class="stat-item">
-                        <h3>24/7</h3>
-                        <p>Platform Availability</p>
-                    </div>
-                </div>
-            </div>
-
             <div class="about-section">
                 <h2>Meet Our Team</h2>
                 <div class="team-grid">
@@ -587,35 +669,35 @@
                         <div class="team-avatar">
                             <img src="https://randomuser.me/api/portraits/women/43.jpg" alt="Sarah Johnson">
                         </div>
-                        <h3>Sarah Johnson</h3>
+                        <h3>Anish Niroula</h3>
                         <p>Founder & CEO</p>
                     </div>
                     <div class="team-member">
                         <div class="team-avatar">
                             <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Michael Chen">
                         </div>
-                        <h3>Michael Chen</h3>
+                        <h3>Hanz Rowei Gurung</h3>
                         <p>Chief Technology Officer</p>
                     </div>
                     <div class="team-member">
                         <div class="team-avatar">
                             <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Amara Patel">
                         </div>
-                        <h3>Amara Patel</h3>
+                        <h3>Nikesh Niroula</h3>
                         <p>Head of Customer Support</p>
                     </div>
                     <div class="team-member">
                         <div class="team-avatar">
                             <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="David Rodriguez">
                         </div>
-                        <h3>David Rodriguez</h3>
+                        <h3>Gokul Poudelz</h3>
                         <p>Marketing Director</p>
                     </div>
                     <div class="team-member">
                         <div class="team-avatar">
                             <img src="https://randomuser.me/api/portraits/women/28.jpg" alt="Emily Thompson">
                         </div>
-                        <h3>Emily Thompson</h3>
+                        <h3>Shristi Pokharel</h3>
                         <p>Community Manager</p>
                     </div>
                 </div>

@@ -169,6 +169,86 @@
         transform: translateY(-1px);
     }
 
+    /* Custom Confirmation Box Styles */
+    .confirmation-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .confirmation-box {
+        background-color: white;
+        padding: 2rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        max-width: 400px;
+        width: 90%;
+        text-align: center;
+        animation: slideIn 0.3s ease-out;
+    }
+
+    @keyframes slideIn {
+        from {
+            transform: translateY(-20px);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    .confirmation-box h3 {
+        color: var(--primary-color);
+        margin-bottom: 1rem;
+        font-size: 1.5rem;
+    }
+
+    .confirmation-box p {
+        color: var(--text-color);
+        margin-bottom: 1.5rem;
+    }
+
+    .confirmation-buttons {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+    }
+
+    .confirmation-button {
+        padding: 0.75rem 1.5rem;
+        border: none;
+        border-radius: var(--radius);
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .confirm-button {
+        background-color: var(--primary-color);
+        color: white;
+    }
+
+    .confirm-button:hover {
+        background-color: var(--primary-dark);
+    }
+
+    .cancel-button {
+        background-color: #e5e7eb;
+        color: var(--text-color);
+    }
+
+    .cancel-button:hover {
+        background-color: #d1d5db;
+    }
+
     /* Main Content */
     main {
         flex: 1;
@@ -444,9 +524,21 @@
             <button class="profile-icon-button" onclick="location.href='<%=request.getContextPath()%>/profile'">
                 <span class="profile-icon">👤</span>
             </button>
-            <button class="sign-out-button" onclick="location.href='<%=request.getContextPath()%>/logout'">Sign Out</button>
+            <button class="sign-out-button" onclick="showSignOutConfirmation()">Sign Out</button>
         </div>
     </header>
+
+    <!-- Custom Confirmation Box -->
+    <div class="confirmation-overlay" id="signOutConfirmation">
+        <div class="confirmation-box">
+            <h3>Sign Out</h3>
+            <p>Are you sure you want to sign out?</p>
+            <div class="confirmation-buttons">
+                <button class="confirmation-button cancel-button" onclick="hideSignOutConfirmation()">Cancel</button>
+                <button class="confirmation-button confirm-button" onclick="confirmSignOut()">Sign Out</button>
+            </div>
+        </div>
+    </div>
 
     <main>
         <div class="container">
@@ -563,6 +655,18 @@
                 alert('Please fill in all required fields');
             }
         });
+
+        function showSignOutConfirmation() {
+            document.getElementById('signOutConfirmation').style.display = 'flex';
+        }
+
+        function hideSignOutConfirmation() {
+            document.getElementById('signOutConfirmation').style.display = 'none';
+        }
+
+        function confirmSignOut() {
+            window.location.href = '<%=request.getContextPath()%>/logout';
+        }
     </script>
 </body>
 </html>

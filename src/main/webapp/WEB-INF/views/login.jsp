@@ -561,31 +561,31 @@
   </style>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      if (!localStorage.getItem('cookieConsent')) {
-        const cookieDialog = document.createElement('div');
-        cookieDialog.className = 'cookie-consent';
-        cookieDialog.innerHTML = `
-          <p>We use cookies to enhance your experience on our website. By clicking "Accept", you agree to our use of cookies.</p>
-          <div class="cookie-buttons">
-            <button class="cookie-btn cookie-reject">Reject</button>
-            <button class="cookie-btn cookie-accept">Accept</button>
-          </div>
-        `;
-        document.body.appendChild(cookieDialog);
-        setTimeout(() => cookieDialog.classList.add('show'), 100);
-        
-        cookieDialog.querySelector('.cookie-accept').addEventListener('click', function() {
-          localStorage.setItem('cookieConsent', 'accepted');
-          cookieDialog.classList.remove('show');
-          setTimeout(() => cookieDialog.remove(), 300);
+        const cookieConsentBox = document.getElementById('cookieConsent');
+        const acceptButton = document.getElementById('acceptCookies');
+        const rejectButton = document.getElementById('rejectCookies');
+        const consentCookie = localStorage.getItem('cookieConsent');
+
+        // If consent hasn't been given, show the box
+        if (!consentCookie) {
+            cookieConsentBox.style.display = 'block';
+            setTimeout(() => cookieConsentBox.classList.add('show'), 100);
+        }
+
+        // Handle Accept button click
+        acceptButton.addEventListener('click', function() {
+            localStorage.setItem('cookieConsent', 'accepted');
+            cookieConsentBox.classList.remove('show');
+            setTimeout(() => cookieConsentBox.remove(), 300);
         });
-        
-        cookieDialog.querySelector('.cookie-reject').addEventListener('click', function() {
-          localStorage.setItem('cookieConsent', 'rejected');
-          cookieDialog.classList.remove('show');
-          setTimeout(() => cookieDialog.remove(), 300);
+
+        // Handle Reject button click
+        rejectButton.addEventListener('click', function() {
+            localStorage.setItem('cookieConsent', 'rejected');
+            cookieConsentBox.classList.remove('show');
+            setTimeout(() => cookieConsentBox.remove(), 300);
+            // Optionally, disable certain functionalities that rely on cookies here
         });
-      }
     });
   </script>
 </head>
@@ -733,5 +733,19 @@
       <p>All Right Reserved</p>
     </div>
   </footer>
+
+  <!-- Standard Cookie Consent Dialog -->
+  <div class="cookie-consent" id="cookieConsent">
+    <p>We use cookies to enhance your experience on our website. By clicking "Accept", you agree to our use of cookies.</p>
+    <div class="cookie-buttons">
+      <button class="cookie-btn cookie-reject" id="rejectCookies">Reject</button>
+      <button class="cookie-btn cookie-accept" id="acceptCookies">Accept</button>
+    </div>
+  </div>
+
+  <!-- The Persistent Modal (Keeping it for now, but can remove if not needed) -->
+  <div id="persistentModal" class="modal-overlay">
+  </div>
+
 </body>
 </html>
