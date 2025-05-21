@@ -85,7 +85,13 @@ public class UnifiedLoginServlet extends HttpServlet {
                     LOGGER.info("User logged in successfully with ID: " + user.getId());
                     response.sendRedirect(request.getContextPath() + "/dashboard");
                 } else {
-                    request.setAttribute("errorMessage", "Invalid user credentials");
+                    // Check if user exists but is inactive
+                    User inactiveUser = userDAO.getUserByUsername(username);
+                    if (inactiveUser != null && !inactiveUser.isActive()) {
+                        request.setAttribute("errorMessage", "Your account has been deactivated. Please contact the administrator.");
+                    } else {
+                        request.setAttribute("errorMessage", "Invalid user credentials");
+                    }
                     request.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(request, response);
                 }
             }

@@ -19,15 +19,15 @@ import java.sql.Timestamp;
 import java.util.logging.Logger;
 import java.util.logging.Level;
 
-@WebServlet("/report-found")
+@WebServlet("/report-lost")
 @MultipartConfig(
         fileSizeThreshold = 1024 * 1024, // 1 MB
         maxFileSize = 5 * 1024 * 1024,   // 5 MB
         maxRequestSize = 10 * 1024 * 1024 // 10 MB
 )
-public class ReportFoundServlet extends HttpServlet {
+public class ReportLostServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    private static final Logger LOGGER = Logger.getLogger(ReportFoundServlet.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(ReportLostServlet.class.getName());
     private ItemDAO itemDAO;
     private CategoryDAO categoryDAO;
     
@@ -51,13 +51,13 @@ public class ReportFoundServlet extends HttpServlet {
         // Load categories for the dropdown
         request.setAttribute("categories", categoryDAO.getAllCategories());
         
-        // Forward to report found page
-        request.getRequestDispatcher("/WEB-INF/views/ReportFound.jsp").forward(request, response);
+        // Forward to report lost page
+        request.getRequestDispatcher("/WEB-INF/views/ReportLost.jsp").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        LOGGER.info("DEBUG: Entered doPost in ReportFoundServlet");
+        LOGGER.info("DEBUG: Entered doPost in ReportLostServlet");
         // Check if user is logged in
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("user") == null) {
@@ -68,25 +68,25 @@ public class ReportFoundServlet extends HttpServlet {
         // Get form data
         String itemName = request.getParameter("itemName");
         String category = request.getParameter("category");
-        String dateFoundStr = request.getParameter("dateFound");
-        String timeFoundStr = request.getParameter("timeFound");
+        String dateLostStr = request.getParameter("dateLost");
+        String timeLostStr = request.getParameter("timeLost");
         String location = request.getParameter("location");
         String description = request.getParameter("description");
         String contactNumber = request.getParameter("contactNumber");
 
-        LOGGER.info("Received found item report: " + itemName + " in category " + category);
+        LOGGER.info("Received lost item report: " + itemName + " in category " + category);
 
         // Validate required fields
         if (itemName == null || itemName.trim().isEmpty() ||
                 category == null || category.trim().isEmpty() ||
-                dateFoundStr == null || dateFoundStr.trim().isEmpty() ||
+                dateLostStr == null || dateLostStr.trim().isEmpty() ||
                 location == null || location.trim().isEmpty() ||
                 description == null || description.trim().isEmpty() ||
                 contactNumber == null || contactNumber.trim().isEmpty()) {
 
-            LOGGER.warning("Missing required fields in found item report");
+            LOGGER.warning("Missing required fields in lost item report");
             request.setAttribute("error", "Please fill all required fields");
-            request.getRequestDispatcher("/WEB-INF/views/ReportFound.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/views/ReportLost.jsp").forward(request, response);
             return;
         }
 
@@ -115,30 +115,30 @@ public class ReportFoundServlet extends HttpServlet {
             item.setCategoryId(Integer.parseInt(category));
             item.setImageUrl(imagePath);
             item.setLocation(location);
-            item.setPostType("found"); // Set type as found
+            item.setPostType("lost"); // Set type as lost
             item.setStatus("pending"); // Initial status is pending
             item.setUserId((Integer) session.getAttribute("userId")); // Get user ID from session
             item.setPostedAt(new Timestamp(System.currentTimeMillis()));
 
-            LOGGER.info("Creating found item with title: " + itemName + " for user: " + item.getUserId());
+            LOGGER.info("Creating lost item with title: " + itemName + " for user: " + item.getUserId());
 
             // Save to database
             boolean success = itemDAO.createItem(item);
 
             if (success) {
-                LOGGER.info("Found item created successfully with ID: " + item.getId());
-                request.setAttribute("message", "Your found item has been reported successfully!");
-                response.sendRedirect(request.getContextPath() + "/found");
+                LOGGER.info("Lost item created successfully with ID: " + item.getId());
+                request.setAttribute("message", "Your lost item has been reported successfully!");
+                response.sendRedirect(request.getContextPath() + "/lost");
             } else {
-                LOGGER.warning("Failed to create found item");
-                request.setAttribute("error", "Failed to save the found item report. Please try again.");
-                request.getRequestDispatcher("/WEB-INF/views/ReportFound.jsp").forward(request, response);
+                LOGGER.warning("Failed to create lost item");
+                request.setAttribute("error", "Failed to save the lost item report. Please try again.");
+                request.getRequestDispatcher("/WEB-INF/views/ReportLost.jsp").forward(request, response);
             }
 
         } catch (Exception e) {
-            LOGGER.log(Level.SEVERE, "Error processing found item report", e);
+            LOGGER.log(Level.SEVERE, "Error processing lost item report", e);
             request.setAttribute("error", "Error processing your request: " + e.getMessage());
-            request.getRequestDispatcher("/WEB-INF/views/ReportFound.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/views/ReportLost.jsp").forward(request, response);
         }
     }
 
@@ -152,4 +152,4 @@ public class ReportFoundServlet extends HttpServlet {
         }
         return null;
     }
-}
+} 

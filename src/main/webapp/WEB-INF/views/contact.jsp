@@ -483,7 +483,7 @@
 
     <header>
         <div class="logo-container">
-            <img src="<%=request.getContextPath()%>/images/logo.png" alt="Home Again Logo" class="logo" onerror="this.onerror=null; this.src='data:image/svg+xml;charset=UTF-8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'80\' height=\'80\' viewBox=\'0 0 80 80\' fill=\'none\'><rect width=\'80\' height=\'80\' rx=\'16\' fill=\'%234f46e5\'/><path d=\'M40 15L15 32V65H30V45H50V65H65V32L40 15Z\' fill=\'white\'/><circle cx=\'40\' cy=\'32\' r=\'8\' fill=\'%23818cf8\'/><path d=\'M44 52H36V65H44V52Z\' fill=\'%23818cf8\'/></svg>'">
+            <img src="<%=request.getContextPath()%>/images/logo.jpg" alt="Home Again Logo" class="logo" onerror="this.onerror=null; this.src='data:image/svg+xml;charset=UTF-8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'80\' height=\'80\' viewBox=\'0 0 80 80\' fill=\'none\'><rect width=\'80\' height=\'80\' rx=\'16\' fill=\'%234f46e5\'/><path d=\'M40 15L15 32V65H30V45H50V65H65V32L40 15Z\' fill=\'white\'/><circle cx=\'40\' cy=\'32\' r=\'8\' fill=\'%23818cf8\'/><path d=\'M44 52H36V65H44V52Z\' fill=\'%23818cf8\'/></svg>'">
         </div>
         <nav>
             <a href="<%=request.getContextPath()%>/">Home</a>
@@ -607,7 +607,7 @@
     <footer>
         <div class="footer-content">
             <div class="footer-logo">
-                <img src="<%=request.getContextPath()%>/images/logo.png" alt="Home Again Logo" class="logo" onerror="this.onerror=null; this.src='data:image/svg+xml;charset=UTF-8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'80\' height=\'80\' viewBox=\'0 0 80 80\' fill=\'none\'><rect width=\'80\' height=\'80\' rx=\'16\' fill=\'%234f46e5\'/><path d=\'M40 15L15 32V65H30V45H50V65H65V32L40 15Z\' fill=\'white\'/><circle cx=\'40\' cy=\'32\' r=\'8\' fill=\'%23818cf8\'/><path d=\'M44 52H36V65H44V52Z\' fill=\'%23818cf8\'/></svg>'">
+                <img src="<%=request.getContextPath()%>/images/logo.jpg" alt="Home Again Logo" class="logo" onerror="this.onerror=null; this.src='data:image/svg+xml;charset=UTF-8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'80\' height=\'80\' viewBox=\'0 0 80 80\' fill=\'none\'><rect width=\'80\' height=\'80\' rx=\'16\' fill=\'%234f46e5\'/><path d=\'M40 15L15 32V65H30V45H50V65H65V32L40 15Z\' fill=\'white\'/><circle cx=\'40\' cy=\'32\' r=\'8\' fill=\'%23818cf8\'/><path d=\'M44 52H36V65H44V52Z\' fill=\'%23818cf8\'/></svg>'">
             </div>
             <div class="footer-section">
                 <h3>Site</h3>

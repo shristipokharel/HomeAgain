@@ -297,17 +297,20 @@
 
         .team-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1.5rem;
+            justify-content: center;
+            align-items: start;
         }
 
         .team-member {
             text-align: center;
+            width: 100%;
         }
 
         .team-avatar {
-            width: 150px;
-            height: 150px;
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
             overflow: hidden;
             margin: 0 auto 1rem;
@@ -434,6 +437,12 @@
         }
 
         /* Responsive styles */
+        @media (max-width: 1200px) {
+            .team-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
         @media (max-width: 768px) {
             header {
                 flex-direction: column;
@@ -468,6 +477,16 @@
                 width: 100%;
                 margin-left: 0;
             }
+
+            .team-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -483,7 +502,7 @@
 
     <header>
         <div class="logo-container">
-            <img src="<%=request.getContextPath()%>/images/logo.png" alt="Home Again Logo" class="logo" onerror="this.onerror=null; this.src='data:image/svg+xml;charset=UTF-8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'80\' height=\'80\' viewBox=\'0 0 80 80\' fill=\'none\'><rect width=\'80\' height=\'80\' rx=\'16\' fill=\'%234f46e5\'/><path d=\'M40 15L15 32V65H30V45H50V65H65V32L40 15Z\' fill=\'white\'/><circle cx=\'40\' cy=\'32\' r=\'8\' fill=\'%23818cf8\'/><path d=\'M44 52H36V65H44V52Z\' fill=\'%23818cf8\'/></svg>'">
+            <img src="<%=request.getContextPath()%>/images/logo.jpg" alt="Home Again Logo" class="logo" onerror="this.onerror=null; this.src='data:image/svg+xml;charset=UTF-8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'80\' height=\'80\' viewBox=\'0 0 80 80\' fill=\'none\'><rect width=\'80\' height=\'80\' rx=\'16\' fill=\'%234f46e5\'/><path d=\'M40 15L15 32V65H30V45H50V65H65V32L40 15Z\' fill=\'white\'/><circle cx=\'40\' cy=\'32\' r=\'8\' fill=\'%23818cf8\'/><path d=\'M44 52H36V65H44V52Z\' fill=\'%23818cf8\'/></svg>'">
         </div>
         <nav>
             <a href="<%=request.getContextPath()%>/">Home</a>
@@ -592,6 +611,13 @@
                         <h3>David Rodriguez</h3>
                         <p>Marketing Director</p>
                     </div>
+                    <div class="team-member">
+                        <div class="team-avatar">
+                            <img src="https://randomuser.me/api/portraits/women/28.jpg" alt="Emily Thompson">
+                        </div>
+                        <h3>Emily Thompson</h3>
+                        <p>Community Manager</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -600,7 +626,7 @@
     <footer>
         <div class="footer-content">
             <div class="footer-logo">
-                <img src="<%=request.getContextPath()%>/images/logo.png" alt="Home Again Logo" class="logo" onerror="this.onerror=null; this.src='data:image/svg+xml;charset=UTF-8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'80\' height=\'80\' viewBox=\'0 0 80 80\' fill=\'none\'><rect width=\'80\' height=\'80\' rx=\'16\' fill=\'%234f46e5\'/><path d=\'M40 15L15 32V65H30V45H50V65H65V32L40 15Z\' fill=\'white\'/><circle cx=\'40\' cy=\'32\' r=\'8\' fill=\'%23818cf8\'/><path d=\'M44 52H36V65H44V52Z\' fill=\'%23818cf8\'/></svg>'">
+                <img src="<%=request.getContextPath()%>/images/logo.jpg" alt="Home Again Logo" class="logo" onerror="this.onerror=null; this.src='data:image/svg+xml;charset=UTF-8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'80\' height=\'80\' viewBox=\'0 0 80 80\' fill=\'none\'><rect width=\'80\' height=\'80\' rx=\'16\' fill=\'%234f46e5\'/><path d=\'M40 15L15 32V65H30V45H50V65H65V32L40 15Z\' fill=\'white\'/><circle cx=\'40\' cy=\'32\' r=\'8\' fill=\'%23818cf8\'/><path d=\'M44 52H36V65H44V52Z\' fill=\'%23818cf8\'/></svg>'">
             </div>
             <div class="footer-section">
                 <h3>Site</h3>

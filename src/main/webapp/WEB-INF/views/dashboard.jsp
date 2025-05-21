@@ -33,6 +33,13 @@
       font-family: 'Inter', system-ui, -apple-system, sans-serif;
     }
 
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
     body {
       min-height: 100vh;
       display: flex;
@@ -174,11 +181,38 @@
 
     .hero {
       text-align: center;
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 4rem 2rem;
+      width: 100%;
+      min-height: 500px;
+      height: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem 2rem;
+      position: relative;
+      color: #fff;
+      background: url('<%=request.getContextPath()%>/images/lost-and-found-full.jpg') center/cover no-repeat;
+      border-radius: 0;
+      box-shadow: none;
+      overflow: hidden;
+      margin-top: 0;
     }
-
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(20, 20, 30, 0.65);
+      z-index: 1;
+    }
+    .hero h1, .hero p, .button-group {
+      position: relative;
+      z-index: 2;
+      color: #fff;
+      font-weight: bold;
+    }
     .hero h1 {
       font-size: 3rem;
       font-weight: 700;
@@ -198,6 +232,8 @@
     }
 
     .button-group {
+      position: relative;
+      z-index: 2;
       display: flex;
       gap: 1rem;
       justify-content: center;
@@ -219,6 +255,10 @@
       background-color: var(--primary-dark);
       transform: translateY(-2px);
       box-shadow: var(--shadow);
+    }
+
+    .dashboard-image-container {
+      display: none;
     }
 
     /* Footer Styles */
@@ -330,6 +370,107 @@
         margin-left: 0;
       }
     }
+
+    .how-it-works {
+      background: var(--white);
+      padding: 3rem 1rem 2rem 1rem;
+      text-align: center;
+      margin: 0 auto 2rem auto;
+      max-width: 1200px;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+    }
+    .how-it-works h2 {
+      color: var(--primary-color);
+      font-size: 2rem;
+      margin-bottom: 2rem;
+    }
+    .steps {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+    }
+    .step {
+      background: var(--background-color);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-sm);
+      padding: 2rem 1.5rem;
+      width: 220px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: box-shadow 0.3s;
+    }
+    .step:hover {
+      box-shadow: var(--shadow-lg);
+    }
+    .step-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    .step h3 {
+      color: var(--primary-color);
+      margin-bottom: 0.5rem;
+    }
+    .step p {
+      color: var(--text-light);
+      font-size: 1rem;
+    }
+
+    .features {
+      background: var(--background-color);
+      padding: 3rem 1rem 2rem 1rem;
+      text-align: center;
+      margin: 0 auto 2rem auto;
+      max-width: 1200px;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+    }
+    .features h2 {
+      color: var(--primary-color);
+      font-size: 2rem;
+      margin-bottom: 2rem;
+    }
+    .feature-cards {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+    }
+    .feature-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-sm);
+      padding: 2rem 1.5rem;
+      width: 220px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: box-shadow 0.3s;
+    }
+    .feature-card:hover {
+      box-shadow: var(--shadow-lg);
+    }
+    .feature-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    .feature-card h3 {
+      color: var(--primary-color);
+      margin-bottom: 0.5rem;
+    }
+    .feature-card p {
+      color: var(--text-light);
+      font-size: 1rem;
+    }
+    @media (max-width: 900px) {
+      .steps, .feature-cards {
+        flex-direction: column;
+        gap: 1.5rem;
+        align-items: center;
+      }
+    }
   </style>
 </head>
 <body>
@@ -344,7 +485,7 @@
 
   <header>
     <div class="logo-container">
-      <img src="<%=request.getContextPath()%>/images/logo.png" alt="Home Again Logo" class="logo" onerror="this.onerror=null; this.src='data:image/svg+xml;charset=UTF-8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'80\' height=\'80\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'%234f46e5\' stroke-width=\'2\' stroke-linecap=\'round\' stroke-linejoin=\'round\'><path d=\'M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z\'></path><polyline points=\'9 22 9 12 15 12 15 22\'></polyline></svg>'">
+      <img src="<%=request.getContextPath()%>/images/logo.jpg" alt="Home Again Logo" class="logo" onerror="this.onerror=null; this.src='data:image/svg+xml;charset=UTF-8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'80\' height=\'80\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'%234f46e5\' stroke-width=\'2\' stroke-linecap=\'round\' stroke-linejoin=\'round\'><path d=\'M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z\'></path><polyline points=\'9 22 9 12 15 12 15 22\'></polyline></svg>'">
     </div>
     <nav>
       <a href="<%=request.getContextPath()%>/">Home</a>
@@ -359,7 +500,7 @@
       <button class="profile-icon-button" onclick="location.href='<%=request.getContextPath()%>/profile'">
         <span class="profile-icon">👤</span>
       </button>
-      <button class="sign-out-button" onclick="location.href='<%=request.getContextPath()%>/logout'">Sign Out</button>
+      <button class="sign-out-button" onclick="confirmLogout()">Sign Out</button>
     </div>
   </header>
 
@@ -374,10 +515,64 @@
     </div>
   </main>
 
+  <!-- How It Works Section -->
+  <section class="how-it-works">
+    <h2>How It Works</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-icon">🔍</div>
+        <h3>1. Search</h3>
+        <p>Look for your lost or found item in our extensive database.</p>
+      </div>
+      <div class="step">
+        <div class="step-icon">📝</div>
+        <h3>2. Report</h3>
+        <p>Submit a report for a lost or found item with easy-to-use forms.</p>
+      </div>
+      <div class="step">
+        <div class="step-icon">🤝</div>
+        <h3>3. Connect</h3>
+        <p>Get in touch with the finder or owner to arrange recovery.</p>
+      </div>
+      <div class="step">
+        <div class="step-icon">🏠</div>
+        <h3>4. Reunite</h3>
+        <p>Bring lost items back to their rightful owners quickly and safely.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features">
+    <h2>Why Choose HomeAgain?</h2>
+    <div class="feature-cards">
+      <div class="feature-card">
+        <div class="feature-icon">🔒</div>
+        <h3>Secure & Private</h3>
+        <p>Your data and privacy are always protected on our platform.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <h3>Fast Recovery</h3>
+        <p>Quickly report and recover lost items with our streamlined process.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🌐</div>
+        <h3>Community Driven</h3>
+        <p>Join a supportive community dedicated to helping each other.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">💬</div>
+        <h3>24/7 Support</h3>
+        <p>Our team is always here to help you, day or night.</p>
+      </div>
+    </div>
+  </section>
+
   <footer>
     <div class="footer-content">
       <div class="footer-logo">
-        <img src="<%=request.getContextPath()%>/images/logo.png" alt="Home Again Logo" class="logo" onerror="this.onerror=null; this.src='data:image/svg+xml;charset=UTF-8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'80\' height=\'80\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'%234f46e5\' stroke-width=\'2\' stroke-linecap=\'round\' stroke-linejoin=\'round\'><path d=\'M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z\'></path><polyline points=\'9 22 9 12 15 12 15 22\'></polyline></svg>'">
+        <img src="<%=request.getContextPath()%>/images/logo.jpg" alt="Home Again Logo" class="logo" onerror="this.onerror=null; this.src='data:image/svg+xml;charset=UTF-8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'80\' height=\'80\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'%234f46e5\' stroke-width=\'2\' stroke-linecap=\'round\' stroke-linejoin=\'round\'><path d=\'M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z\'></path><polyline points=\'9 22 9 12 15 12 15 22\'></polyline></svg>'">
       </div>
       <div class="footer-section">
         <h3>Site</h3>
@@ -428,4 +623,16 @@
     </div>
   </footer>
 </body>
+<script>
+    function confirmLogout() {
+        // Display a confirmation dialog
+        const confirmed = confirm("Are you sure you want to sign out?");
+        
+        // If the user confirms, redirect to the logout URL
+        if (confirmed) {
+            window.location.href = '<%=request.getContextPath()%>/logout';
+        }
+        // If the user cancels, do nothing
+    }
+</script>
 </html>

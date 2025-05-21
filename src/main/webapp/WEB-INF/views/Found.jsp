@@ -324,6 +324,119 @@
           line-height: 1.5;
         }
 
+        /* Item Details Modal */
+        .item-modal {
+          display: none;
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-color: rgba(0, 0, 0, 0.5);
+          z-index: 1000;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .modal-content {
+          background: var(--white);
+          border-radius: var(--radius-lg);
+          max-width: 600px;
+          width: 90%;
+          max-height: 90vh;
+          overflow-y: auto;
+          position: relative;
+        }
+
+        .modal-header {
+          padding: 1.5rem;
+          border-bottom: 1px solid var(--border-color);
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+
+        .modal-title {
+          font-size: 1.5rem;
+          font-weight: 600;
+          color: var(--text-color);
+        }
+
+        .close-modal {
+          background: none;
+          border: none;
+          font-size: 1.5rem;
+          color: var(--text-light);
+          cursor: pointer;
+          padding: 0.5rem;
+          transition: color 0.3s ease;
+        }
+
+        .close-modal:hover {
+          color: var(--text-color);
+        }
+
+        .modal-body {
+          padding: 1.5rem;
+        }
+
+        .modal-image {
+          width: 100%;
+          height: 300px;
+          object-fit: cover;
+          border-radius: var(--radius);
+          margin-bottom: 1.5rem;
+        }
+
+        .modal-details {
+          display: grid;
+          gap: 1rem;
+        }
+
+        .detail-row {
+          display: flex;
+          gap: 1rem;
+          align-items: flex-start;
+        }
+
+        .detail-label {
+          font-weight: 600;
+          color: var(--text-color);
+          min-width: 100px;
+        }
+
+        .detail-value {
+          color: var(--text-color);
+          flex: 1;
+        }
+
+        .contact-button {
+          background-color: var(--primary-color);
+          color: white;
+          border: none;
+          border-radius: var(--radius);
+          padding: 0.75rem 1.5rem;
+          font-size: 1rem;
+          font-weight: 500;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          margin-top: 1.5rem;
+          width: 100%;
+          justify-content: center;
+        }
+
+        .contact-button:hover {
+          background-color: var(--primary-dark);
+          transform: translateY(-2px);
+        }
+
+        .contact-button i {
+          font-size: 1.1rem;
+        }
+
         /* Footer Styles */
         footer {
           margin-top: auto;
@@ -438,6 +551,24 @@
             width: 100%;
             margin-left: 0;
           }
+
+          .modal-content {
+            width: 95%;
+            margin: 1rem;
+          }
+
+          .modal-image {
+            height: 200px;
+          }
+
+          .detail-row {
+            flex-direction: column;
+            gap: 0.25rem;
+          }
+
+          .detail-label {
+            min-width: auto;
+          }
         }
     </style>
 </head>
@@ -453,7 +584,7 @@
 
     <header>
         <div class="logo-container">
-            <img src="<%=request.getContextPath()%>/images/logo.png" alt="Home Again Logo" class="logo" onerror="this.onerror=null; this.src='data:image/svg+xml;charset=UTF-8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'80\' height=\'80\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'%234f46e5\' stroke-width=\'2\' stroke-linecap=\'round\' stroke-linejoin=\'round\'><path d=\'M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z\'></path><polyline points=\'9 22 9 12 15 12 15 22\'></polyline></svg>'">
+            <img src="<%=request.getContextPath()%>/images/logo.jpg" alt="Home Again Logo" class="logo" onerror="this.onerror=null; this.src='data:image/svg+xml;charset=UTF-8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'80\' height=\'80\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'%234f46e5\' stroke-width=\'2\' stroke-linecap=\'round\' stroke-linejoin=\'round\'><path d=\'M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z\'></path><polyline points=\'9 22 9 12 15 12 15 22\'></polyline></svg>'">
         </div>
         <nav>
             <a href="<%=request.getContextPath()%>/">Home</a>
@@ -498,7 +629,7 @@
         <div class="items-grid">
             <!-- Dynamic Found items loop -->
             <c:forEach items="${foundItems}" var="item">
-                <div class="item-card">
+                <div class="item-card" onclick="showItemDetails('${item.id}', '${item.title}', '${item.description}', '${item.location}', '${item.postedAt}', '${item.imageUrl}')">
                     <c:if test="${not empty item.categoryId}">
                         <div class="item-tag">
                             <c:choose>
@@ -531,10 +662,44 @@
         </div>
     </main>
 
+    <!-- Item Details Modal -->
+    <div id="itemModal" class="item-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Item Details</h2>
+                <button class="close-modal" onclick="hideItemDetails()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <img id="modalItemImage" src="" alt="Item Image" class="modal-image">
+                <div class="modal-details">
+                    <div class="detail-row">
+                        <span class="detail-label">Item Name:</span>
+                        <span class="detail-value" id="modalItemTitle"></span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Description:</span>
+                        <span class="detail-value" id="modalItemDescription"></span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Location:</span>
+                        <span class="detail-value" id="modalItemLocation"></span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Date Found:</span>
+                        <span class="detail-value" id="modalItemDate"></span>
+                    </div>
+                </div>
+                <button class="contact-button" onclick="contactItemOwner()">
+                    <i class="fas fa-phone"></i> Contact User 
+                </button>
+            </div>
+        </div>
+    </div>
+
     <footer>
         <div class="footer-content">
             <div class="footer-logo">
-                <img src="<%=request.getContextPath()%>/images/logo.png" alt="Home Again Logo" class="logo" onerror="this.onerror=null; this.src='data:image/svg+xml;charset=UTF-8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'80\' height=\'80\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'%234f46e5\' stroke-width=\'2\' stroke-linecap=\'round\' stroke-linejoin=\'round\'><path d=\'M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z\'></path><polyline points=\'9 22 9 12 15 12 15 22\'></polyline></svg>'">
+                <img src="<%=request.getContextPath()%>/images/logo.jpg" alt="Home Again Logo" class="logo" onerror="this.onerror=null; this.src='data:image/svg+xml;charset=UTF-8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'80\' height=\'80\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'%234f46e5\' stroke-width=\'2\' stroke-linecap=\'round\' stroke-linejoin=\'round\'><path d=\'M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z\'></path><polyline points=\'9 22 9 12 15 12 15 22\'></polyline></svg>'">
             </div>
             <div class="footer-section">
                 <h3>Site</h3>
@@ -583,5 +748,45 @@
             <p>© Copyright 2025 Home Again. All rights reserved.</p>
         </div>
     </footer>
+
+    <script>
+        function showItemDetails(id, title, description, location, date, imageUrl) {
+            const modal = document.getElementById('itemModal');
+            const modalImage = document.getElementById('modalItemImage');
+            const modalTitle = document.getElementById('modalItemTitle');
+            const modalDescription = document.getElementById('modalItemDescription');
+            const modalLocation = document.getElementById('modalItemLocation');
+            const modalDate = document.getElementById('modalItemDate');
+
+            // Set modal content
+            modalImage.src = imageUrl || 'data:image/svg+xml;charset=UTF-8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22200%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%23e2e8f0%22 stroke-width=%221%22 stroke-dasharray=%225,5%22%3E%3Crect x=%223%22 y=%223%22 width=%2218%22 height=%2218%22 rx=%222%22 ry=%222%22%3E%3C/rect%3E%3Ccircle cx=%228.5%22 cy=%228.5%22 r=%221.5%22%3E%3C/circle%3E%3Cpolyline points=%2221 15 16 10 5 21%22%3E%3C/polyline%3E%3C/svg%3E';
+            modalTitle.textContent = title;
+            modalDescription.textContent = description;
+            modalLocation.textContent = location;
+            modalDate.textContent = new Date(date).toLocaleDateString();
+
+            // Show modal
+            modal.style.display = 'flex';
+        }
+
+        function hideItemDetails() {
+            const modal = document.getElementById('itemModal');
+            modal.style.display = 'none';
+        }
+
+        function contactItemOwner() {
+            // Here you can implement the contact functionality
+            // For example, show a contact form or redirect to a contact page
+            alert('Contact functionality will be implemented soon!');
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('itemModal');
+            if (event.target == modal) {
+                hideItemDetails();
+            }
+        }
+    </script>
 </body>
 </html>

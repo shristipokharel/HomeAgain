@@ -68,7 +68,17 @@ public class ItemDAO {
                 stmt.setString(1, item.getTitle());
                 stmt.setString(2, item.getDescription());
                 stmt.setInt(3, item.getCategoryId());
-                stmt.setString(4, item.getImageUrl());
+                
+                // Handle image URL
+                String imageUrl = item.getImageUrl();
+                if (imageUrl != null && !imageUrl.trim().isEmpty()) {
+                    LOGGER.info("Setting image URL: " + imageUrl);
+                    stmt.setString(4, imageUrl);
+                } else {
+                    LOGGER.info("No image URL provided, setting to NULL");
+                    stmt.setNull(4, Types.VARCHAR);
+                }
+                
                 stmt.setString(5, item.getLocation());
                 stmt.setString(6, item.getPostType());
                 stmt.setString(7, item.getStatus());
@@ -78,16 +88,32 @@ public class ItemDAO {
                 LOGGER.info("Executing SQL: " + query);
                 LOGGER.info("Parameters: title=" + item.getTitle() + 
                           ", category_id=" + item.getCategoryId() + 
+                          ", image_url=" + imageUrl +
+                          ", location=" + item.getLocation() +
+                          ", post_type=" + item.getPostType() +
+                          ", status=" + item.getStatus() +
                           ", user_id=" + item.getUserId());
                 
                 int rowsAffected = stmt.executeUpdate();
+                LOGGER.info("Rows affected by insert: " + rowsAffected);
                 
                 if (rowsAffected > 0) {
                     try (ResultSet rs = stmt.getGeneratedKeys()) {
                         if (rs.next()) {
-                            item.setId(rs.getInt(1));
-                            LOGGER.info("Item created successfully with ID: " + item.getId());
-                            return true;
+                            int newId = rs.getInt(1);
+                            item.setId(newId);
+                            LOGGER.info("Item created successfully with ID: " + newId);
+                            
+                            // Verify the item was saved correctly
+                            Item savedItem = getItemById(newId);
+                            if (savedItem != null) {
+                                LOGGER.info("Verified saved item: " + savedItem.getTitle() + 
+                                          " with image URL: " + savedItem.getImageUrl());
+                                return true;
+                            } else {
+                                LOGGER.warning("Item was inserted but could not be retrieved");
+                                return false;
+                            }
                         }
                     }
                 }
@@ -397,5 +423,45 @@ public class ItemDAO {
         item.setUserId(rs.getInt("user_id"));
         item.setPostedAt(rs.getTimestamp("posted_at"));
         return item;
+    }
+
+    // Get count of items by status
+    public int getItemsCountByStatus(String status) {
+        String query = "SELECT COUNT(*) FROM items WHERE status = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, status);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    // Get recent items by status, ordered by posted_at descending
+    public List<Item> getRecentItemsByStatus(String status, int limit) {
+        List<Item> items = new ArrayList<>();
+        String query = "SELECT * FROM items WHERE status = ? ORDER BY posted_at DESC LIMIT ?";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            stmt.setString(1, status);
+            stmt.setInt(2, limit);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Item item = extractItemFromResultSet(rs);
+                items.add(item);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return items;
     }
 } 

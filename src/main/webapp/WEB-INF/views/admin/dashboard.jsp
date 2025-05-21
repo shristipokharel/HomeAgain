@@ -213,6 +213,86 @@
         .admin-logout:hover {
             background: var(--primary-dark);
         }
+
+        /* Stats Overview Styles */
+        .stats-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            /* Temporary border for debugging */
+            border: 5px solid red;
+        }
+
+        .stat-card {
+            background: var(--white);
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-sm);
+            text-align: center;
+        }
+
+        .stat-card .icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        .stat-card h3 {
+            font-size: 1.1rem;
+            color: var(--text-color);
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-card .number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+        }
+
+        /* Recent Activity Styles */
+        .recent-activity {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+        }
+        .recent-activity h2 {
+            color: var(--text-color);
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1rem;
+        }
+        .activity-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .activity-item {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px dashed var(--border-color);
+        }
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+        .activity-icon {
+            font-size: 1.2rem;
+            margin-right: 1rem;
+            color: var(--primary-color);
+        }
+        .activity-item p {
+            flex-grow: 1;
+            margin: 0;
+            color: var(--text-color);
+        }
+        .activity-time {
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
     </style>
 </head>
 <body>
@@ -232,7 +312,7 @@
         </div>
         <div class="admin-header-right">
             <span class="admin-user">Admin: <strong><%= adminUsername %></strong></span>
-            <a href="${pageContext.request.contextPath}/logout" class="admin-logout">Logout</a>
+            <a href="${pageContext.request.contextPath}/logout" class="admin-logout" onclick="return confirm('Are you sure you want to sign out?');">Logout</a>
         </div>
     </header>
 
@@ -261,8 +341,79 @@
                 <div class="error-message">${error}</div>
             </c:if>
 
+            <!-- Stats Overview Section -->
+            <div class="stats-overview">
+                <div class="stat-card">
+                    <div class="icon">📊</div>
+                    <h3>Total Users</h3>
+                    <p class="number">${totalUsers}</p>
+                </div>
+                <div class="stat-card">
+                    <div class="icon">✅</div>
+                    <h3>Active Users</h3>
+                    <p class="number">${activeUsers}</p>
+                </div>
+                <div class="stat-card">
+                    <div class="icon">❌</div>
+                    <h3>Inactive Users</h3>
+                    <p class="number">${inactiveUsers}</p>
+                </div>
+                <div class="stat-card">
+                    <div class="icon">👍</div>
+                    <h3>Items Approved</h3>
+                    <p class="number">${approvedItems}</p>
+                </div>
+                <div class="stat-card">
+                    <div class="icon">👎</div>
+                    <h3>Items Rejected</h3>
+                    <p class="number">${rejectedItems}</p>
+                </div>
+                <div class="stat-card">
+                    <div class="icon">📧</div>
+                    <h3>Contact Messages</h3>
+                    <p class="number">${totalContacts}</p>
+                </div>
+            </div>
+
+            <!-- Recent Activity Section -->
+            <div class="recent-activity">
+                <h2>Recent Activity</h2>
+                <div class="activity-list">
+                    <c:forEach items="${top7RecentActivities}" var="activity">
+                        <div class="activity-item">
+                            <c:choose>
+                                <c:when test="${activity[1] eq 'item' and activity[2] eq 'approved'}">
+                                    <span class="activity-icon">✅</span>
+                                    <p>Item <strong>'${activity[3]}'</strong> approved.</p>
+                                </c:when>
+                                <c:when test="${activity[1] eq 'item' and activity[2] eq 'rejected'}">
+                                     <span class="activity-icon">👎</span>
+                                     <p>Item <strong>'${activity[3]}'</strong> rejected.</p>
+                                </c:when>
+                                <c:when test="${activity[1] eq 'user' and activity[2] eq 'registered'}">
+                                     <span class="activity-icon">⭐</span>
+                                     <p>New user <strong>'${activity[3]}'</strong> signed up.</p>
+                                </c:when>
+                                <c:when test="${activity[1] eq 'contact' and activity[2] eq 'received'}">
+                                     <span class="activity-icon">✉️</span>
+                                     <p>Contact message received from <strong>'${activity[3]}'</strong>.</p>
+                                </c:when>
+                                <c:otherwise>
+                                    <span class="activity-icon">📋</span>
+                                    <p>Unknown activity.</p>
+                                </c:otherwise>
+                            </c:choose>
+                            <span class="activity-time">${activity[0]}</span>
+                        </div>
+                    </c:forEach>
+                    <c:if test="${empty top7RecentActivities}">
+                        <p>No recent activity.</p>
+                    </c:if>
+                </div>
+            </div>
+
             <div class="pending-items">
-                <h3>Pending Items</h3>
+                <h2>Pending Items for Review</h2>
                 <c:if test="${empty pendingItems}">
                     <p>No pending items to review.</p>
                 </c:if>

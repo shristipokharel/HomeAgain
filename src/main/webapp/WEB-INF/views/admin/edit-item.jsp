@@ -45,6 +45,29 @@
             height: 100vh;
             overflow-y: auto;
         }
+        .sidebar-header {
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            color: var(--text-color);
+            text-decoration: none;
+            border-radius: var(--radius);
+            margin-bottom: 0.5rem;
+            transition: all 0.2s;
+        }
+        .sidebar-link:hover {
+            background: var(--primary-light);
+            color: var(--white);
+        }
+        .sidebar-link.active {
+            background: var(--primary-color);
+            color: var(--white);
+        }
         .content-area {
             flex: 1;
             padding: 2rem;
@@ -131,7 +154,7 @@
                 <h4>Admin Menu</h4>
             </div>
             <a href="${pageContext.request.contextPath}/admin/items" class="sidebar-link">Pending Items</a>
-            <a href="${pageContext.request.contextPath}/admin/all-items" class="sidebar-link">All Items</a>
+            <a href="${pageContext.request.contextPath}/admin/all-items" class="sidebar-link active">All Items</a>
             <a href="${pageContext.request.contextPath}/admin/users" class="sidebar-link">Manage Users</a>
             <a href="${pageContext.request.contextPath}/admin/contacts" class="sidebar-link">Contact Messages</a>
         </div>

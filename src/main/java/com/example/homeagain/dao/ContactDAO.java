@@ -127,4 +127,40 @@ public class ContactDAO {
         contact.setCreatedAt(rs.getTimestamp("created_at"));
         return contact;
     }
+
+    // Get total number of contacts
+    public int getTotalContacts() {
+        String query = "SELECT COUNT(*) FROM contacts";
+        try (Connection conn = DBConnection.getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(query)) {
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    // Get recent contacts, ordered by created_at descending
+    public List<Contact> getRecentContacts(int limit) {
+        List<Contact> contacts = new ArrayList<>();
+        String query = "SELECT * FROM contacts ORDER BY created_at DESC LIMIT ?";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            stmt.setInt(1, limit);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Contact contact = extractContactFromResultSet(rs);
+                contacts.add(contact);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return contacts;
+    }
 } 

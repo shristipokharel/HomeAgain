@@ -91,6 +91,10 @@ public class UserDAO {
         User user = getUserByUsername(username);
         
         if (user != null) {
+            // Check if user is active
+            if (!user.isActive()) {
+                return null; // Return null if user is inactive
+            }
             // Verify the password
             boolean isValid = PasswordUtils.verifyPassword(password, user.getPassword(), user.getSalt());
             if (isValid) {
@@ -208,6 +212,57 @@ public class UserDAO {
         }
     }
     
+    // Get total number of users
+    public int getTotalUsers() {
+        String query = "SELECT COUNT(*) FROM users";
+        try (Connection conn = DBConnection.getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(query)) {
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    // Get count of active users
+    public int getActiveUsersCount() {
+        String query = "SELECT COUNT(*) FROM users WHERE is_active = TRUE";
+        try (Connection conn = DBConnection.getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(query)) {
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+    
+    // Get recent users, ordered by created_at descending
+    public List<User> getRecentUsers(int limit) {
+        List<User> users = new ArrayList<>();
+        String query = "SELECT * FROM users ORDER BY created_at DESC LIMIT ?";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            stmt.setInt(1, limit);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                users.add(extractUserFromResultSet(rs));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return users;
+    }
     
     // Helper method to extract user from ResultSet
     private User extractUserFromResultSet(ResultSet rs) throws SQLException {
