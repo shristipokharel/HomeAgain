@@ -263,7 +263,7 @@
         .page-header h1 {
           font-size: 2.5rem;
           font-weight: 700;
-          color: var(--primary-color);
+          color: var(--text-color);
           margin: 0;
         }
 
@@ -388,7 +388,7 @@
         .item-title {
           font-size: 1.25rem;
           font-weight: 700;
-          color: var(--primary-color);
+          color: var(--text-color);
           margin: 0;
         }
 
@@ -567,7 +567,7 @@
         }
 
         .footer-section p:hover {
-          color: var(--primary-color);
+          color: var(--text-color);
         }
 
         .social-icons {

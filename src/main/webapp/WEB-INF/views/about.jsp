@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Us - HomeAgain</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
             --primary-color: #4f46e5;
@@ -240,7 +241,7 @@
 
         .about-section h2 {
             font-size: 1.8rem;
-            color: var(--primary-color);
+            color: var(--text-color);
             margin-bottom: 1.5rem;
             position: relative;
             padding-bottom: 0.5rem;
@@ -286,7 +287,7 @@
         }
 
         .value-card h3 {
-            color: var(--primary-color);
+            color: var(--text-color);
             margin-bottom: 0.75rem;
             font-size: 1.25rem;
         }
@@ -337,92 +338,6 @@
         .team-member p {
             color: var(--text-light);
             font-size: 0.875rem;
-        }
-
-        .stats-section {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin: 4rem 0;
-        }
-
-        .stat-card {
-            background: var(--white);
-            padding: 2rem;
-            border-radius: var(--radius);
-            text-align: center;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-        }
-
-        .stat-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--primary-color);
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-label {
-            color: var(--secondary-color);
-            font-size: 1.1rem;
-        }
-
-        .mission-vision {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin: 4rem 0;
-        }
-
-        .mission-card, .vision-card {
-            background: var(--white);
-            padding: 2.5rem;
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .mission-card::before, .vision-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(to right, var(--primary-color), var(--primary-dark));
-        }
-
-        .mission-card h3, .vision-card h3 {
-            font-size: 1.8rem;
-            color: var(--primary-color);
-            margin-bottom: 1rem;
-        }
-
-        .mission-card p, .vision-card p {
-            color: var(--text-light);
-            line-height: 1.8;
-        }
-
-        .icon-container {
-            width: 60px;
-            height: 60px;
-            background: var(--primary-light);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1.5rem;
-        }
-
-        .icon-container i {
-            font-size: 1.8rem;
-            color: var(--primary-color);
         }
 
         /* Footer Styles */
@@ -555,7 +470,6 @@
             }
         }
     </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     <!-- Check if user is logged in -->
@@ -590,47 +504,6 @@
 
     <main>
         <div class="container">
-            <section class="about-hero">
-                <h1>Welcome to HomeAgain</h1>
-                <p>Where every pet finds their perfect home and every family discovers their perfect companion. We're dedicated to creating lasting bonds between pets and their forever families.</p>
-            </section>
-
-            <section class="stats-section">
-                <div class="stat-card">
-                    <div class="stat-number">5000+</div>
-                    <div class="stat-label">Happy Pets Adopted</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">98%</div>
-                    <div class="stat-label">Successful Adoptions</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">2000+</div>
-                    <div class="stat-label">Volunteer Hours</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">15+</div>
-                    <div class="stat-label">Years of Service</div>
-                </div>
-            </section>
-
-            <section class="mission-vision">
-                <div class="mission-card">
-                    <div class="icon-container">
-                        <i class="fas fa-heart"></i>
-                    </div>
-                    <h3>Our Mission</h3>
-                    <p>To provide every pet with a loving home and ensure that every adoption creates a lasting bond between pets and their families. We believe in responsible pet ownership and creating a community where every animal is valued and cared for.</p>
-                </div>
-                <div class="vision-card">
-                    <div class="icon-container">
-                        <i class="fas fa-eye"></i>
-                    </div>
-                    <h3>Our Vision</h3>
-                    <p>To create a world where every pet has a loving home and every family can experience the joy of pet companionship. We envision a future where animal shelters are empty because every pet has found their perfect match.</p>
-                </div>
-            </section>
-
             <div class="about-section">
                 <h2>Our Story</h2>
                 <div class="card">
@@ -644,18 +517,22 @@
                 <h2>Our Values</h2>
                 <div class="value-cards">
                     <div class="value-card">
+                        <i class="fas fa-handshake"></i>
                         <h3>Community Trust</h3>
                         <p>We foster a trusted environment where users can safely connect with others who have found or lost items.</p>
                     </div>
                     <div class="value-card">
+                        <i class="fas fa-universal-access"></i>
                         <h3>Accessibility</h3>
                         <p>Our platform is designed to be user-friendly and accessible to everyone, regardless of technical ability.</p>
                     </div>
                     <div class="value-card">
+                        <i class="fas fa-shield-alt"></i>
                         <h3>Privacy & Security</h3>
                         <p>We prioritize the protection of user data and provide secure channels for communication.</p>
                     </div>
                     <div class="value-card">
+                        <i class="fas fa-heart"></i>
                         <h3>Empathy</h3>
                         <p>We understand the emotional impact of losing valued possessions and approach every situation with compassion.</p>
                     </div>
@@ -667,35 +544,35 @@
                 <div class="team-grid">
                     <div class="team-member">
                         <div class="team-avatar">
-                            <img src="https://randomuser.me/api/portraits/women/43.jpg" alt="Sarah Johnson">
+                            <img src="<%=request.getContextPath()%>/images/Anish.jpg" alt="Anish Niroula">
                         </div>
                         <h3>Anish Niroula</h3>
                         <p>Founder & CEO</p>
                     </div>
                     <div class="team-member">
                         <div class="team-avatar">
-                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Michael Chen">
+                            <img src="<%=request.getContextPath()%>/images/Hanz Rowei.jpg" alt="Hanz Rowei Gurung">
                         </div>
                         <h3>Hanz Rowei Gurung</h3>
                         <p>Chief Technology Officer</p>
                     </div>
                     <div class="team-member">
                         <div class="team-avatar">
-                            <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Amara Patel">
+                            <img src="<%=request.getContextPath()%>/images/Nikesh.jpg" alt="Nikesh Niroula">
                         </div>
                         <h3>Nikesh Niroula</h3>
                         <p>Head of Customer Support</p>
                     </div>
                     <div class="team-member">
                         <div class="team-avatar">
-                            <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="David Rodriguez">
+                            <img src="<%=request.getContextPath()%>/images/gokul.jpg" alt="Gokul Poudelz">
                         </div>
                         <h3>Gokul Poudelz</h3>
                         <p>Marketing Director</p>
                     </div>
                     <div class="team-member">
                         <div class="team-avatar">
-                            <img src="https://randomuser.me/api/portraits/women/28.jpg" alt="Emily Thompson">
+                            <img src="<%=request.getContextPath()%>/images/Shristi.jpg" alt="Shristi Pokharel">
                         </div>
                         <h3>Shristi Pokharel</h3>
                         <p>Community Manager</p>

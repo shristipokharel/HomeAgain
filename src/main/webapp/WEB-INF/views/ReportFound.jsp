@@ -265,7 +265,7 @@
     h1 {
         font-size: 2rem;
         margin-bottom: 1rem;
-        color: var(--primary-color);
+        color: var(--text-color);
     }
 
     .page-description {
@@ -444,7 +444,7 @@
     }
 
     .footer-section p:hover {
-        color: var(--primary-color);
+        color: var(--text-color);
     }
 
     .social-icons {

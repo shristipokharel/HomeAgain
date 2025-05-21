@@ -206,7 +206,7 @@
     }
 
     .confirmation-box h3 {
-      color: var(--primary-color);
+      color: var(--text-color);
       margin-bottom: 1rem;
       font-size: 1.5rem;
     }
@@ -270,7 +270,7 @@
       justify-content: center;
       padding: 3rem 2rem;
       position: relative;
-      color: #fff;
+      color: var(--white);
       background: url('<%=request.getContextPath()%>/images/lost-and-found-full.jpg') center/cover no-repeat;
       border-radius: 0;
       box-shadow: none;
@@ -290,24 +290,20 @@
     .hero h1, .hero p, .button-group {
       position: relative;
       z-index: 2;
-      color: #fff;
+      color: var(--white);
       font-weight: bold;
     }
     .hero h1 {
       font-size: 3rem;
       font-weight: 700;
-      color: var(--text-color);
+      color: var(--white);
       margin-bottom: 1.5rem;
       line-height: 1.2;
-      background: linear-gradient(to right, var(--primary-color), var(--primary-dark));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
     }
 
     .hero p {
       font-size: 1.2rem;
-      color: var(--text-light);
+      color: var(--white);
       margin-bottom: 2.5rem;
     }
 
@@ -461,7 +457,7 @@
       box-shadow: var(--shadow);
     }
     .how-it-works h2 {
-      color: var(--primary-color);
+      color: var(--text-color);
       font-size: 2rem;
       margin-bottom: 2rem;
     }
@@ -490,7 +486,7 @@
       margin-bottom: 1rem;
     }
     .step h3 {
-      color: var(--primary-color);
+      color: var(--text-color);
       margin-bottom: 0.5rem;
     }
     .step p {
@@ -508,7 +504,7 @@
       box-shadow: var(--shadow);
     }
     .features h2 {
-      color: var(--primary-color);
+      color: var(--text-color);
       font-size: 2rem;
       margin-bottom: 2rem;
     }
@@ -537,7 +533,7 @@
       margin-bottom: 1rem;
     }
     .feature-card h3 {
-      color: var(--primary-color);
+      color: var(--text-color);
       margin-bottom: 0.5rem;
     }
     .feature-card p {
@@ -552,6 +548,7 @@
       }
     }
   </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
   <!-- Check if user is logged in -->
@@ -612,22 +609,22 @@
     <h2>How It Works</h2>
     <div class="steps">
       <div class="step">
-        <div class="step-icon">🔍</div>
+        <div class="step-icon"><i class="fas fa-search"></i></div>
         <h3>1. Search</h3>
         <p>Look for your lost or found item in our extensive database.</p>
       </div>
       <div class="step">
-        <div class="step-icon">📝</div>
+        <div class="step-icon"><i class="fas fa-file-alt"></i></div>
         <h3>2. Report</h3>
         <p>Submit a report for a lost or found item with easy-to-use forms.</p>
       </div>
       <div class="step">
-        <div class="step-icon">🤝</div>
+        <div class="step-icon"><i class="fas fa-handshake"></i></div>
         <h3>3. Connect</h3>
         <p>Get in touch with the finder or owner to arrange recovery.</p>
       </div>
       <div class="step">
-        <div class="step-icon">🏠</div>
+        <div class="step-icon"><i class="fas fa-home"></i></div>
         <h3>4. Reunite</h3>
         <p>Bring lost items back to their rightful owners quickly and safely.</p>
       </div>
@@ -639,22 +636,22 @@
     <h2>Why Choose HomeAgain?</h2>
     <div class="feature-cards">
       <div class="feature-card">
-        <div class="feature-icon">🔒</div>
+        <div class="feature-icon"><i class="fas fa-lock"></i></div>
         <h3>Secure & Private</h3>
         <p>Your data and privacy are always protected on our platform.</p>
       </div>
       <div class="feature-card">
-        <div class="feature-icon">⚡</div>
+        <div class="feature-icon"><i class="fas fa-bolt"></i></div>
         <h3>Fast Recovery</h3>
         <p>Quickly report and recover lost items with our streamlined process.</p>
       </div>
       <div class="feature-card">
-        <div class="feature-icon">🌐</div>
+        <div class="feature-icon"><i class="fas fa-users"></i></div>
         <h3>Community Driven</h3>
         <p>Join a supportive community dedicated to helping each other.</p>
       </div>
       <div class="feature-card">
-        <div class="feature-icon">💬</div>
+        <div class="feature-icon"><i class="fas fa-life-ring"></i></div>
         <h3>24/7 Support</h3>
         <p>Our team is always here to help you, day or night.</p>
       </div>

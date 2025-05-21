@@ -240,7 +240,7 @@
     }
 
     .auth-header h2 {
-      color: var(--primary-color);
+      color: var(--text-color);
       font-size: 2rem;
       margin-bottom: 0.5rem;
     }
@@ -333,7 +333,7 @@
     }
 
     .checkbox-label a {
-      color: var(--primary-color);
+      color: var(--text-color);
       text-decoration: none;
     }
 
@@ -367,7 +367,7 @@
     }
 
     .auth-redirect a {
-      color: var(--primary-color);
+      color: var(--text-color);
       text-decoration: none;
       font-weight: 500;
     }
@@ -426,7 +426,7 @@
     }
 
     .footer-section p:hover {
-      color: var(--primary-color);
+      color: var(--text-color);
     }
 
     .social-icons {

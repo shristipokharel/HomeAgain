@@ -263,7 +263,7 @@
         /* Contact Page Specific Styles */
         .page-title {
             font-size: 2.5rem;
-            color: var(--primary-color);
+            color: var(--text-color);
             margin-bottom: 1rem;
             text-align: center;
         }
@@ -296,7 +296,7 @@
 
         .contact-form-container h2 {
             font-size: 1.5rem;
-            color: var(--primary-color);
+            color: var(--text-color);
             margin-bottom: 1.5rem;
         }
 
@@ -498,7 +498,7 @@
         }
 
         .footer-section p:hover {
-            color: var(--primary-color);
+            color: var(--text-color);
         }
 
         .social-icons {

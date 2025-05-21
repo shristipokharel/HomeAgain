@@ -182,13 +182,13 @@
         .profile-avatar {
             width: 120px;
             height: 120px;
-            background: var(--primary-light);
+            background: var(--background-color);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 3rem;
-            color: var(--primary-color);
+            color: var(--text-color);
         }
 
         .profile-info {
@@ -215,7 +215,7 @@
         .stat-value {
             font-size: 1.5rem;
             font-weight: 600;
-            color: var(--primary-color);
+            color: var(--text-color);
         }
 
         .stat-label {
@@ -242,7 +242,7 @@
         }
 
         .section-title i {
-            color: var(--primary-color);
+            color: var(--text-color);
         }
 
         .profile-details {
@@ -648,6 +648,67 @@
 
         .cancel-button:hover {
             background-color: #d1d5db;
+        }
+
+        .footer-section p:hover {
+            color: var(--text-color);
+        }
+
+        /* Footer Styles */
+        footer {
+            margin-top: auto;
+            background-color: var(--white);
+            border-top: 1px solid var(--border-color);
+            padding: 2rem 2rem 1rem;
+            position: relative;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 4rem;
+            margin: 0;
+            padding: 0;
+        }
+
+        .footer-logo {
+            margin: 0;
+            padding: 0;
+            display: inline-block;
+        }
+
+        .footer-logo img {
+            width: 80px;
+            height: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .footer-section {
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 0.75rem;
+            color: var(--text-color);
+            font-size: 1rem;
+        }
+
+        .footer-section p {
+            margin: 0.5rem 0;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+
+        .footer-section p:hover {
+            color: var(--text-color);
+        }
+
+        .social-icons {
+            /* Existing social icon styles */
         }
     </style>
 </head>

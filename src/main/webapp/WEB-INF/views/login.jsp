@@ -305,7 +305,7 @@
     }
 
     .auth-header h2 {
-      color: var(--primary-color);
+      color: var(--text-color);
       font-size: 2rem;
       margin-bottom: 0.5rem;
     }
@@ -390,7 +390,7 @@
     }
 
     .forgot-password {
-      color: var(--primary-color);
+      color: var(--text-color);
       text-decoration: none;
       font-size: 0.9rem;
     }
@@ -425,7 +425,7 @@
     }
 
     .auth-redirect a {
-      color: var(--primary-color);
+      color: var(--text-color);
       text-decoration: none;
       font-weight: 500;
     }
@@ -484,7 +484,7 @@
     }
 
     .footer-section p:hover {
-      color: var(--primary-color);
+      color: var(--text-color);
     }
 
     .social-icons {
