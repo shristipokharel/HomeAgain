@@ -21,7 +21,15 @@ public class FoundServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Item> foundItems = itemDAO.getItemsByPostType("found");
+        String searchTerm = request.getParameter("search");
+        List<Item> foundItems;
+        
+        if (searchTerm != null && !searchTerm.trim().isEmpty()) {
+            foundItems = itemDAO.searchItems("found", searchTerm.trim());
+        } else {
+            foundItems = itemDAO.getItemsByPostType("found");
+        }
+        
         request.setAttribute("foundItems", foundItems);
         request.getRequestDispatcher("/WEB-INF/views/Found.jsp").forward(request, response);
     }

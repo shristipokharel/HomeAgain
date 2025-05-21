@@ -21,7 +21,15 @@ public class LostServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Item> lostItems = itemDAO.getItemsByPostType("lost");
+        String searchTerm = request.getParameter("search");
+        List<Item> lostItems;
+        
+        if (searchTerm != null && !searchTerm.trim().isEmpty()) {
+            lostItems = itemDAO.searchItems("lost", searchTerm.trim());
+        } else {
+            lostItems = itemDAO.getItemsByPostType("lost");
+        }
+        
         request.setAttribute("lostItems", lostItems);
         request.getRequestDispatcher("/WEB-INF/views/Lost.jsp").forward(request, response);
     }

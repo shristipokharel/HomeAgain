@@ -242,6 +242,35 @@ public class ItemDAO {
         return items;
     }
     
+    // Search items by post type and search term
+    public List<Item> searchItems(String postType, String searchTerm) {
+        List<Item> items = new ArrayList<>();
+        String query = "SELECT * FROM items WHERE post_type = ? AND status = 'approved' AND " +
+                      "(LOWER(title) LIKE LOWER(?) OR LOWER(description) LIKE LOWER(?) OR LOWER(location) LIKE LOWER(?))";
+        
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            
+            String searchPattern = "%" + searchTerm + "%";
+            stmt.setString(1, postType);
+            stmt.setString(2, searchPattern);
+            stmt.setString(3, searchPattern);
+            stmt.setString(4, searchPattern);
+            
+            ResultSet rs = stmt.executeQuery();
+            
+            while (rs.next()) {
+                Item item = extractItemFromResultSet(rs);
+                items.add(item);
+            }
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return items;
+    }
+    
     // Get items by category
     public List<Item> getItemsByCategory(int categoryId) {
         List<Item> items = new ArrayList<>();

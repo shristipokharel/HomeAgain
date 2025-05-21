@@ -314,6 +314,32 @@
           box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
         }
 
+        .search-form {
+          display: flex;
+          flex: 1;
+          gap: 0.5rem;
+          min-width: 200px;
+        }
+
+        .search-button {
+          background-color: var(--primary-color);
+          color: white;
+          border: none;
+          border-radius: var(--radius);
+          padding: 0.75rem 1.25rem;
+          cursor: pointer;
+          transition: all 0.3s ease;
+        }
+
+        .search-button:hover {
+          background-color: var(--primary-dark);
+        }
+
+        .search-button img {
+          height: 1em; /* Adjust size as needed */
+          vertical-align: middle;
+        }
+
         .select-filter {
           padding: 0.75rem 1.25rem;
           border: 1px solid var(--border-color);
@@ -702,7 +728,12 @@
         </div>
         
         <div class="filters">
-            <input type="text" class="search-input" placeholder="Search lost items...">
+            <form id="searchForm" action="<%=request.getContextPath()%>/lost" method="get" class="search-form">
+                <input type="text" name="search" class="search-input" placeholder="Search lost items..." value="${param.search}">
+                <button type="submit" class="search-button">
+                    <img src="<%=request.getContextPath()%>/images/search.png" alt="Search">
+                </button>
+            </form>
             <select class="select-filter">
                 <option selected>All Categories</option>
                 <option>Electronics</option>
@@ -891,6 +922,15 @@
         function confirmSignOut() {
             window.location.href = '<%=request.getContextPath()%>/logout';
         }
+
+        // Add search form handling
+        document.getElementById('searchForm').addEventListener('submit', function(e) {
+            const searchInput = this.querySelector('input[name="search"]');
+            if (!searchInput.value.trim()) {
+                e.preventDefault();
+                window.location.href = '<%=request.getContextPath()%>/lost';
+            }
+        });
     </script>
 </body>
 </html>

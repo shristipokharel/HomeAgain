@@ -2,6 +2,7 @@
 <%@ page import="com.example.homeagain.model.User" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.example.homeagain.model.Item" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
     User user = (User) request.getAttribute("user");
     List<Item> userItems = (List<Item>) request.getAttribute("userItems");
@@ -801,7 +802,7 @@
             <% if (userItems != null && !userItems.isEmpty()) { %>
                 <div class="items-grid">
                     <% for (Item item : userItems) { %>
-                        <div class="item-card">
+                        <div class="item-card" onclick="handleItemClick(this, '<%= item.getStatus() %>', '<%= item.getRejectionReason() != null ? item.getRejectionReason().replace("'", "\\'").replace("\n", "\\n") : "" %>')">
                             <div class="item-image">
                                 <% if (item.getImageUrl() != null && !item.getImageUrl().isEmpty()) { %>
                                     <img src="<%=request.getContextPath()%>/<%=item.getImageUrl()%>" alt="<%=item.getTitle()%>">
@@ -826,11 +827,17 @@
                                     <i class="fas fa-clock"></i>
                                     Posted: <%=item.getPostedAt()%>
                                 </p>
+                                <%-- Add rejection reason display here --%>
+                                <c:if test="${item.status == 'Rejected' and not empty item.rejectionReason}">
+                                    <p style="color: var(--danger); font-size: 0.9rem; margin-top: 0.5rem;">
+                                        Reason: ${item.rejectionReason}
+                                    </p>
+                                </c:if>
                                 <div class="item-actions">
                                     <button onclick="location.href='<%=request.getContextPath()%>/edit-item?id=<%=item.getId()%>'" class="edit-btn">
                                         <i class="fas fa-edit"></i> Edit
                                     </button>
-                                    <button onclick="showDeleteConfirmation(<%=item.getId()%>, '<%=item.getTitle()%>')" class="delete-btn">
+                                    <button onclick="showDeleteConfirmation(this)" class="delete-btn" data-item-id="<%= item.getId() %>" data-item-title="<%= item.getTitle() %>">
                                         <i class="fas fa-trash"></i> Delete
                                     </button>
                                 </div>
@@ -848,6 +855,30 @@
         </div>
     </main>
 
+    <!-- Delete Confirmation Modal -->
+    <div id="deleteModal" class="modal">
+        <div class="modal-content">
+            <h3 class="modal-title">Confirm Deletion</h3>
+            <p class="modal-text">Are you sure you want to delete "<span id="deleteItemTitle"></span>"?</p>
+            <div class="modal-buttons">
+                <button class="cancel-btn" onclick="hideDeleteConfirmation()">Cancel</button>
+                <button class="save-btn" id="confirmDeleteButton">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Rejection Reason Modal -->
+    <div id="rejectionModal" class="modal">
+        <div class="modal-content">
+            <h3 class="modal-title">Rejection Reason</h3>
+            <p class="modal-text" id="rejectionReason"></p>
+            <div class="modal-buttons">
+                <button class="cancel-btn" onclick="hideRejectionModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <input type="hidden" id="deleteItemId">
     <!-- Custom Confirmation Box -->
     <div class="confirmation-overlay" id="signOutConfirmation">
         <div class="confirmation-box">
@@ -861,7 +892,9 @@
     </div>
 
     <script>
-        function showDeleteConfirmation(itemId, itemTitle) {
+        function showDeleteConfirmation(button) {
+            const itemId = button.getAttribute('data-item-id');
+            const itemTitle = button.getAttribute('data-item-title');
             document.getElementById('deleteItemId').value = itemId;
             document.getElementById('deleteItemTitle').textContent = itemTitle;
             document.getElementById('deleteModal').style.display = 'flex';
@@ -871,11 +904,35 @@
             document.getElementById('deleteModal').style.display = 'none';
         }
 
-        // Close modal when clicking outside
+        function showRejectionModal(reason) {
+            document.getElementById('rejectionReason').textContent = reason;
+            document.getElementById('rejectionModal').style.display = 'flex';
+        }
+
+        function hideRejectionModal() {
+            document.getElementById('rejectionModal').style.display = 'none';
+        }
+
+        function handleItemClick(card, status, rejectionReason) {
+            // Prevent click handling if clicking on buttons
+            if (event.target.closest('.item-actions')) {
+                return;
+            }
+            
+            if (status === 'rejected' && rejectionReason) {
+                showRejectionModal(rejectionReason);
+            }
+        }
+
+        // Close modals when clicking outside
         window.onclick = function(event) {
-            const modal = document.getElementById('deleteModal');
-            if (event.target == modal) {
+            const deleteModal = document.getElementById('deleteModal');
+            const rejectionModal = document.getElementById('rejectionModal');
+            if (event.target == deleteModal) {
                 hideDeleteConfirmation();
+            }
+            if (event.target == rejectionModal) {
+                hideRejectionModal();
             }
         }
 
@@ -890,6 +947,35 @@
         function confirmSignOut() {
             window.location.href = '<%=request.getContextPath()%>/logout';
         }
+
+        // Add event listener for the confirm delete button
+        document.getElementById('confirmDeleteButton').addEventListener('click', function() {
+            const itemId = document.getElementById('deleteItemId').value;
+
+            // Send a POST request to the delete endpoint
+            fetch('<%=request.getContextPath()%>/delete-item', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: 'id=' + encodeURIComponent(itemId) // Send ID in the request body
+            })
+            .then(response => {
+                // Check if the request was successful (status in 200-299 range)
+                if (response.ok) {
+                    // Redirect or reload the page after successful deletion
+                    window.location.href = '<%=request.getContextPath()%>/profile?deleteSuccess=true';
+                } else {
+                    // Handle errors, e.g., display an error message
+                    window.location.href = '<%=request.getContextPath()%>/profile?deleteError=true';
+                }
+            })
+            .catch(error => {
+                // Handle network errors
+                console.error('Error deleting item:', error);
+                window.location.href = '<%=request.getContextPath()%>/profile?deleteError=true';
+            });
+        });
     </script>
 </body>
 </html> 
