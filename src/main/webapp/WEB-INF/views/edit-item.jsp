@@ -49,10 +49,7 @@
             font-weight: 700;
             margin-bottom: 2rem;
             text-align: center;
-            background: linear-gradient(to right, var(--primary-color), var(--primary-dark));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: var(--text-color);
         }
 
         .form-group {

@@ -547,35 +547,35 @@
                             <img src="<%=request.getContextPath()%>/images/Anish.jpg" alt="Anish Niroula">
                         </div>
                         <h3>Anish Niroula</h3>
-                        <p>Founder & CEO</p>
+                        <p>Frontend Engineer</p>
                     </div>
                     <div class="team-member">
                         <div class="team-avatar">
                             <img src="<%=request.getContextPath()%>/images/Hanz Rowei.jpg" alt="Hanz Rowei Gurung">
                         </div>
                         <h3>Hanz Rowei Gurung</h3>
-                        <p>Chief Technology Officer</p>
+                        <p>Quality Assurance Engineer</p>
                     </div>
                     <div class="team-member">
                         <div class="team-avatar">
                             <img src="<%=request.getContextPath()%>/images/Nikesh.jpg" alt="Nikesh Niroula">
                         </div>
                         <h3>Nikesh Niroula</h3>
-                        <p>Head of Customer Support</p>
+                        <p>Developer</p>
                     </div>
                     <div class="team-member">
                         <div class="team-avatar">
-                            <img src="<%=request.getContextPath()%>/images/gokul.jpg" alt="Gokul Poudelz">
+                            <img src="<%=request.getContextPath()%>/images/gokul.jpg" alt="Gokul Poudel">
                         </div>
-                        <h3>Gokul Poudelz</h3>
-                        <p>Marketing Director</p>
+                        <h3>Gokul Poudel</h3>
+                        <p>IT Support Specialist</p>
                     </div>
                     <div class="team-member">
                         <div class="team-avatar">
                             <img src="<%=request.getContextPath()%>/images/Shristi.jpg" alt="Shristi Pokharel">
                         </div>
                         <h3>Shristi Pokharel</h3>
-                        <p>Community Manager</p>
+                        <p>Database Engineer</p>
                     </div>
                 </div>
             </div>
