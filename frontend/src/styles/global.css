@@ -1,0 +1,91 @@
+/* Global styles */
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+/* Custom navbar styles */
+.custom-navbar {
+  background: linear-gradient(90deg, #1976d2 0%, #42a5f5 100%);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Custom form styles */
+.custom-form {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  transition: transform 0.3s ease;
+}
+
+.custom-form:hover {
+  transform: translateY(-5px);
+}
+
+/* Custom button styles */
+.custom-button {
+  background: linear-gradient(90deg, #1976d2 0%, #42a5f5 100%);
+  color: white !important;
+  transition: all 0.3s ease !important;
+}
+
+.custom-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Custom alert styles */
+.custom-alert {
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+
+/* Custom card styles */
+.custom-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.custom-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* Custom table styles */
+.custom-table {
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Loading spinner styles */
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+}
+
+/* Form field styles */
+.MuiTextField-root {
+  margin-bottom: 16px !important;
+}
+
+/* Container styles */
+.container {
+  padding: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Responsive styles */
+@media (max-width: 600px) {
+  .container {
+    padding: 16px;
+  }
+  
+  .custom-form {
+    padding: 16px !important;
+  }
+} 
